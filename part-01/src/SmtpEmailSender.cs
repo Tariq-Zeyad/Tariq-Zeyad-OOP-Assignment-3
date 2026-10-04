@@ -1,0 +1,8 @@
+using System;
+namespace RefactoringLab;
+
+public class SmtpEmailSender : IEmailSender
+{
+	public void Send(string to, string body) =>
+		Console.WriteLine($"[SMTP] send email to {to} with body: {body}");
+}
