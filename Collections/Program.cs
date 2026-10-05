@@ -23,4 +23,4 @@ namespace Collections
             Console.WriteLine($"2990101123456 -> {"2990101123456".IsValidEgyptianNationalId()}");
         }
     }
-}
+}   
