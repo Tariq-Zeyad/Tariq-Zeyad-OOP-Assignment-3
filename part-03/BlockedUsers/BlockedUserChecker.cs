@@ -1,0 +1,55 @@
+using System.Diagnostics;
+
+namespace RefactoringLab.Part03.BlockedUsers;
+
+public static class BlockedUserChecker
+{
+    public static List<int> BuildBlockedIds(int count)
+    {
+        var blockedIds = new List<int>();
+
+        for (var i = 0; i < count; i++)
+            blockedIds.Add(i);
+
+        return blockedIds;
+    }
+
+    public static int CountBlocked(List<int> blockedIds, int[] requestIds)
+    {
+        var blocked = new HashSet<int>(blockedIds);
+
+        var count = 0;
+
+        foreach (var id in requestIds)
+        {
+            if (blocked.Contains(id))
+                count++;
+        }
+
+        return count;
+    }
+
+    public static int[] BuildRequestIds(int count, int maxId, int seed = 42)
+    {
+        var rnd = new Random(seed);
+        var ids = new int[count];
+
+        for (var i = 0; i < count; i++)
+            ids[i] = rnd.Next(maxId);
+
+        return ids;
+    }
+
+    public static long MeasureMs(
+        List<int> blockedIds,
+        int[] requestIds,
+        out int found)
+    {
+        var sw = Stopwatch.StartNew();
+
+        found = CountBlocked(blockedIds, requestIds);
+
+        sw.Stop();
+        return sw.ElapsedMilliseconds;
+    }
+}
